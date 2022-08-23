@@ -72,10 +72,10 @@ class NoteApp extends React.Component {
        <div className='note-app__body'> 
         <NoteInput addNote={this.onAddNoteHandler}/>
         <h2>Catatan Aktif</h2>
-        <NoteItem notes={actived} searchResult={this.onSearchNoteHandler} onDelete={this.onDeleteHandler} onUpdate={this.onUpdateNoteHandler}/>
+        <NoteItem notes={actived} key={actived.id} searchResult={this.onSearchNoteHandler} onDelete={this.onDeleteHandler} onUpdate={this.onUpdateNoteHandler}/>
         
         <h2>Arsip</h2>  
-        <NoteItem notes={archived} searchResult={this.onSearchNoteHandler} onDelete={this.onDeleteHandler} onUpdate={this.onUpdateNoteHandler}/>
+        <NoteItem notes={archived} key={archived.id} searchResult={this.onSearchNoteHandler} onDelete={this.onDeleteHandler} onUpdate={this.onUpdateNoteHandler}/>
        </div>
        </>
     )

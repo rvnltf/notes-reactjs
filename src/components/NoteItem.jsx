@@ -10,7 +10,7 @@ function NoteItem({ notes, onDelete, onUpdate}) {
       {
          notes.length > 0?
          notes.map((note) => (
-          <div className="note-item">
+          <div key={note.id} className="note-item">
             <NoteItemBody title={note.title} body={note.body} createdAt={note.createdAt} />
             <div className='note-item__action'>
               <DeleteButton id={note.id} onDelete={onDelete} />
