@@ -46,22 +46,13 @@ class NoteApp extends React.Component {
     }
 
     onSearchNoteHandler(search){
-      const regex = new RegExp(search, "i");
-      let searchData;
-      if (search) {
-        console.log(search);
-        searchData = this.state.notes.filter(v=>v.title.search(regex)>-1);
-      } else {
-        searchData = getInitialData()
-      }
-      
-      this.setState({searchData});
-      // return search ? this.state.notes.filter(v => pattern.test(v.title)) : this.setState({notes:getInitialData()});
+      this.setState({searchData:search});
     }
 
  render(){
-    const archived = this.state.searchData ? this.state.searchData.filter(v=>v.archived) : this.state.notes.filter(v=>v.archived);
-    const actived = this.state.searchData ? this.state.searchData.filter(v=>!v.archived) :this.state.notes.filter(v=>!v.archived);
+    const regex = new RegExp(this.state.searchData, "i");
+    const archived = this.state.searchData ? this.state.notes.filter(v=>v.title.search(regex)>-1&&v.archived) : this.state.notes.filter(v=>v.archived);
+    const actived = this.state.searchData ? this.state.notes.filter(v=>v.title.search(regex)>-1&&!v.archived)  :this.state.notes.filter(v=>!v.archived);
 
     return (
        <>
@@ -72,10 +63,10 @@ class NoteApp extends React.Component {
        <div className='note-app__body'> 
         <NoteInput addNote={this.onAddNoteHandler}/>
         <h2>Catatan Aktif</h2>
-        <NoteItem notes={actived} key={actived.id} searchResult={this.onSearchNoteHandler} onDelete={this.onDeleteHandler} onUpdate={this.onUpdateNoteHandler}/>
+        <NoteItem notes={actived} key={actived.id} onDelete={this.onDeleteHandler} onUpdate={this.onUpdateNoteHandler}/>
         
         <h2>Arsip</h2>  
-        <NoteItem notes={archived} key={archived.id} searchResult={this.onSearchNoteHandler} onDelete={this.onDeleteHandler} onUpdate={this.onUpdateNoteHandler}/>
+        <NoteItem notes={archived} key={archived.id} onDelete={this.onDeleteHandler} onUpdate={this.onUpdateNoteHandler}/>
        </div>
        </>
     )
